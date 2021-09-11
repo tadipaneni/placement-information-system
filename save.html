@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* {
+  box-sizing: border-box;
+  font-family:cursive, Helvetica, sans-serif;
+  font-size:18px;
+}
+
+input[type=text],input[type=number], select, textarea {
+  width: 100%;
+  font-family:cursive, Helvetica, sans-serif;
+  padding: 12px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  font-size:18px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  font-family:cursive, Helvetica, sans-serif;
+  display: inline-block;
+  font-size:18px
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  font-family:cursive, Helvetica, sans-serif;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: center;
+  font-size:18px
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+  font-family:cursive, Helvetica, sans-serif;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  font-family:cursive, Helvetica, sans-serif;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+  font-family:cursive, Helvetica, sans-serif;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+  font-size:18px;
+  font-family:cursive, Helvetica, sans-serif;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+  font-size:18px;
+  font-family:cursive, Helvetica, sans-serif;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    font-family:cursive, Helvetica, sans-serif;
+    margin-top: 0;
+    font-size:18px;
+  }
+}
+</style>
+</head>
+<body>
+
+<h1>Let us know something more about you!</h1>
+<p>We would like to know some information from you.Fill the details below.</p>
+
+<div class="container">
+  <form action="details.jsp" method="post">
+  <div class="row">
+    <div class="col-25">
+      <label for="fname">Name:</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="fname" name="firstname" placeholder="Your name..">
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-25">
+      <label for="fgender">Gender:</label>
+    </div>
+    <div class="col-75">
+      <select id="fgender" name="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="no">Not prefer to say</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-25">
+      <label for="fcollege">College:</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="fcollege" name="College" placeholder="Your college...">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-25">
+      <label for="cgpa">CGPA:</label>
+    </div>
+    <div class="col-75">
+      <input type="number" id="cgpa" name="cgpa" placeholder="Your CGPA...">
+    </div>
+  </div>
+  
+    <div class="row">
+    <div class="col-25">
+      <label for="Education">Education:</label>
+    </div>
+    <div class="col-75">
+      <select id="Education" name="Education">
+        <option value="graduate">Graduate</option>
+        <option value="post-graduate">Post-Graduate</option>
+        <option value="phd">Ph.D</option>
+      </select>
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-25">
+      <label for="eyear">Expected Year of completion:</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="eyear" name="eyear" placeholder="Your Expected year of completion...">
+    </div>
+  </div>
+  
+
+  <div class="row" align="center">
+    <input type="submit" value="Submit">
+  </div>
+  </form>
+</div>
+
+</body>
+</html>

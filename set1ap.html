@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quiz!</title>
+    </head>
+    <body>
+<style>
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body
+{
+    height: 100%;
+    width: 100%;
+    background: #eee;
+}
+.head
+{
+    height: 60px;
+    width : 320px;
+    background: #4A148C;
+    border-radius: 25px;
+    text-align: center;
+    color: #fff;
+    font-size: 25pt;
+    padding: 12px 0 0 0;
+    margin: 15px auto;
+}
+.quiz-holder
+{
+    
+}
+.container
+{
+    height: 500px;
+    width : 400px;
+    background: #fff;
+    position: absolute;
+    top : 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius : 10px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.1),
+    inset 0 0 0 rgba(0,0,0,0.1);
+}
+.n
+{
+    height: 45px;
+    width: 25px;
+    border-radius: 50%;
+    background: #E91E63;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0 0 0;
+    position: absolute;
+    left : 25px;
+    top: 80px;
+}
+.q
+{
+    position: absolute;
+    left : 70px;
+    top : 20px;
+    font-size: 15pt;
+}
+.op
+{
+    display: inline-block;
+    height: 30px;
+    width: 130px;
+    background: #03A9F4;
+    border-radius: 10px;
+    position: absolute;
+    text-align: center;
+    padding: 6px 0 0 0;
+    color: #fff;
+    cursor: pointer;
+}
+
+.op:nth-child(1)
+{
+    top: 210px;
+    left : 20px;
+}
+.op:nth-child(2)
+{
+    top: 210px;
+    right : 20px;
+}
+.op:nth-child(3)
+{
+    top: 250px;
+    left : 20px;
+}
+.op:nth-child(4)
+{
+    top: 250px;
+    right : 20px;
+}
+.next
+{
+    position: absolute;
+    height: 28px;
+    width: 85px;
+    background: red;
+    top : 400px;
+    right: 20px;
+    border-radius: 8px;
+    color : #fff;
+    text-align: center;
+    padding: 5px 0 0 0;
+    cursor: pointer;
+}
+.meta
+{
+    position: absolute;
+    bottom: 150px;
+    left : 50%;
+    transform: translateX(-50%);
+    height: 10px;
+    width: 80%;
+    border-top : 1px solid rgba(0,0,0,0.1);
+    padding: 25px 0 0 0;
+    text-transform: uppercase;
+    
+}
+.a-t
+{
+    float: right;
+}
+.after-quiz
+{
+    height: 360px;
+    width : 320px;
+    background: #fff;
+    position: absolute;
+    top : 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius : 10px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.1),
+    inset 0 0 0 rgba(0,0,0,0.1);
+    text-align: center;
+    padding: 150px 0 0 0;
+    font-size: 22pt;
+    text-transform: uppercase;
+    display: none;
+    
+}
+.button1{
+
+font-family:cursive, Helvetica, sans-serif;
+font-size:20px
+}
+
+</style>
+       <div id="quiz-holder" class="quiz-holder">
+       <div class="head">Quiz</div>
+           <div class="container">
+           <div class="n"><p id="n">0</p></div>
+               <div class="question">
+                   <p class="q" id="q">
+                       This is a demo of question. Another demo is here.
+                   </p>
+               </div>
+               <div class="options">
+                   <div class="op" id="1">Option 1</div>
+                   <div class="op" id="2">Option 1</div>
+                   <div class="op" id="3">Option 1</div>
+                   <div class="op" id="4">Option 1</div>
+                   </div>
+                   <div onclick="next()" class="next">Next</div>
+               </div>
+               <div class="meta">
+                   Score : <span class="score" id="score">0</span>
+                   <span class="a-t">Answered : <span class="played" id="played">0</span> / <span id="total"></span></span>
+               </div>
+           </div>
+       </div>
+
+
+        <div id="a-q" class="after-quiz">
+            
+            <p class="thanks">Good job!!</p><br><br>
+            <a href="samplepapers.html"><button1>Go Back</button1></a>
+        </div>
+       
+       
+        <script>
+            var question,options,questionIndex,score,scoreSpan,total, playedSpan,played,numSpan,num,q_holder,a_q,a_s;
+            question = document.getElementById('q');
+            options = document.getElementsByClassName('op');
+            questionIndex = 0;
+            score = 1;
+            played = 1;
+            num = 1;
+            total = document.getElementById("total");
+            scoreSpan = document.getElementById("score");
+            playedSpan = document.getElementById("played");
+            numSpan = document.getElementById("n");
+            q_holder = document.getElementById("quiz-holder");
+            a_q = document.getElementById("a-q");
+            a_s = document.getElementById("after-score");
+            
+            questions = [
+                new Question(" a, b, c and d are four numbers in arithmetic progression. The mean of these four numbers is 20. The common difference between the numbers is 5. Find the product of first and last numbers.",["13","442","34","124"], "442"),
+                new Question("A shopkeeper has two items A & B. A was sold at a profit of 25% and B was sold at a loss of 15%. If the cost price of A is 15% more than that of B, what is the overall profit/ loss % to the shopkeeper?",["20.65","19.65","18.65","20"], "19.65"),
+                new Question(" A set contains all numbers from 1 to 250. If a number is picked at random, what is the probability that it is a multiple of 3?",["82/50","83/250","80/250","1/3"], "83/250"),
+           
+                
+                ];
+                
+                
+            
+            
+            function Question(text, choices, answere)
+            {
+                this.text = text;
+                this.choices = choices;
+                this.answere = answere;
+                
+                this.correct = function(ans)
+                {
+                    return this.answere == ans;
+                }
+            }
+            
+           
+                
+                question.innerHTML = questions[questionIndex].text;
+                for (i = 0; i < questions[questionIndex].choices.length; i++)
+                {
+                    options[i].innerHTML = questions[questionIndex].choices[i];
+                    
+                }
+                
+                
+          
+            
+            function next(){
+                questionIndex++;
+                playedSpan.innerHTML = played++;
+                numSpan.innerHTML = num++;
+                if (questionIndex !== questions.length)
+                {
+                question.innerHTML = questions[questionIndex].text;
+                for (i = 0; i < questions[questionIndex].choices.length; i++)
+                {
+                    options[i].innerHTML = questions[questionIndex].choices[i];
+                }
+                }
+                else
+                {
+                    questionIndex = 0;
+                    played = 0;
+                    num = 0;
+                    q_holder.style.display = "none";
+                    a_q.style.display = "block";
+                    
+                    
+                }
+            }
+            
+            actionHandler();
+            
+            
+            
+            
+            
+            function actionHandler()
+            {
+                a = document.getElementById('1');
+                b = document.getElementById('2');
+                c = document.getElementById('3');
+                d = document.getElementById('4');
+                
+                
+                a.addEventListener("click", function (){
+                    if (questions[questionIndex].answere == questions[questionIndex].choices[0])
+                    {
+                        scoreSpan.innerHTML = score++;
+                    
+                        correct.play();
+                        
+                    
+                    }
+                    else
+                    {
+                       wrong.play();
+                        
+                        
+                    }
+                    
+                });
+                
+                b.addEventListener("click", function () {
+                    if (questions[questionIndex].answere == questions[questionIndex].choices[1])
+                    {
+                        scoreSpan.innerHTML = score++;
+                        
+                       correct.play();
+                    
+                        
+                    }
+                    else
+                    {
+                        wrong.play();
+                        
+                        
+                    }
+                });
+                
+                c.addEventListener("click", function () {
+                    if (questions[questionIndex].answere == questions[questionIndex].choices[2])
+                    {
+                        scoreSpan.innerHTML = score++;
+                        
+                        correct.play();
+                        
+                        
+                    }
+                    else
+                    {
+                        wrong.play();
+                        
+                        
+                    }
+                });
+                
+                d.addEventListener("click", function () {
+                    if (questions[questionIndex].answere == questions[questionIndex].choices[3])
+                    {
+                        scoreSpan.innerHTML = score++;
+                        
+                        correct.play();
+                        
+                    }
+                    else
+                    {
+                        
+                        wrong.play();
+                        
+                    }
+                });
+                
+                }
+                total.innerHTML = questions.length;
+                
+                
+                
+                
+            
+         
+            
+            var correct = new Audio("C:\Users\Naga Sravani\Desktop\Ep\Ep project\Sololearn Correct.mp3");
+    var wrong = new Audio("https://www.dropbox.com/s/zxbq3favobpexi3/Sololearn%20Wrong.mp3?dl=1&raw=1");
+        </script>
+    </body>
+</html>
